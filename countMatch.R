@@ -10,7 +10,9 @@ countMatch <- function(text=NULL, pattern=NULL,
             length(text) == 1, length(pattern) == 1)
   # get input
   if (file.exists(text)) {
-    input <- paste0(readLines(text, warn=F), collapse='')
+    CON <- file(text)
+    on.exit(close(CON))
+    input <- paste0(readLines(CON, warn=F), collapse='')
   } else if (nchar(text) > 0) {
     input <- text
   } else { stop('invalid input!') }
